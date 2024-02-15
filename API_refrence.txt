@@ -1,0 +1,48 @@
+https://learn.microsoft.com/en-us/bingmaps/rest-services/getting-started-with-the-bing-maps-rest-services
+
+
+Get a map that is centered at a specified point
+When you specify a center point, you must also specify a zoom level.
+
+https://dev.virtualearth.net/REST/v1/Imagery/Map/imagerySet/centerPoint/zoomLevel?
+mapSize={mapSize}&
+pushpin={pushpin}&
+mapLayer={mapLayer}&
+format={format}&
+mapMetadata={mapMetadata}&
+key={BingMapsKey}
+
+
+Get a map that shows a specified map area
+https://dev.virtualearth.net/REST/v1/Imagery/Map/imagerySet?
+mapArea={mapArea}&
+mapSize={mapSize}&
+pushpin={pushpin}&
+mapLayer={mapLayer}&
+format={format}&
+mapMetadata={mapMetadata}&
+key={BingMapsKey}
+
+
+
+
+Get a Bird's Eye map
+
+This example gets a Bird's Eye map with a West orientation (dir=270) at zoom level 20. The map has a width of 900 pixels and a height of 700 pixels.
+
+https://dev.virtualearth.net/REST/V1/Imagery/Map/Birdseye/
+37.802297,-122.405844/
+20?
+dir=270&
+ms=900,700&
+key={BingMapsKey}
+
+
+
+
+
+Time Zone from Location Point
+
+Given a specified point of latitude and longitude coordinates, like point = 47,-122, the Time Zone API returns information about the time zone for that location.
+
+https://dev.virtualearth.net/REST/v1/TimeZone/{point}?datetime={datetime_utc}&key={BingMapsKey}

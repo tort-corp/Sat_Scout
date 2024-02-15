@@ -1,0 +1,39 @@
+{% include "header.html" %}
+
+<section>
+    <article>
+        <div class="container text-center">
+            <div class="row">
+                <div class="col">
+
+                </div>
+                <div class="col-8">
+                    <p>A satellite image location scout</p>
+                    <h2>About</h2>
+                    <p> This website will retrieve information about the address
+                        entered below using the bing maps API. It will display a
+                        satellite image of the location as well as the local
+                        time. Other information such as local weather will be
+                        available at a later date </p>
+                </div>
+                <div class="col">
+
+                </div>
+            </div>
+        </article>
+
+        <div class="container text-center py-3">
+
+            <p>Type in the latitude and longitude of the location you want
+                information about.</p>
+            <p>
+                <form action="/" method="POST">
+                    {{ form.location }}
+                    {{ form.submit }}
+                </form>
+            </p>
+
+        </div>
+
+    </section>
+    {% include "footer.html" %}

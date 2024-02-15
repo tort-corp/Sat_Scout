@@ -1,0 +1,17 @@
+{% include "header.html" %}
+
+            <section>
+                <article>
+                  <div class="container text-center py-3">
+                    <p>Location: {{ location }} </p>
+                    <p>Local time: {{ local_time }}</p>              
+
+                    
+                            <img src="{{ img_location }}" class="img-fluid" alt="An image of the location searched for">
+                  </div>
+                      
+
+                </article>
+
+            </section>
+            {% include "footer.html" %}
