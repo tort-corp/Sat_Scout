@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Home - Sat Scout</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='assets/bootstrap/css/bootstrap.min.css') }}">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic&amp;display=swap">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Cabin:700&amp;display=swap">
+        <link rel="stylesheet" href="{{ url_for('static', filename='assets/fonts/font-awesome.min.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/Login-Form-Basic-icons.css') }}">
+    </head>
+
+    <body id="page-top" data-bs-spy="scroll" data-bs-target="#mainNav" data-bs-offset="77"></body>
+        <nav class="navbar navbar-expand-md fixed-top navbar-light" id="mainNav">
+            <div class="container"><a class="navbar-brand" href="#">Sat Scout</a><button data-bs-toggle="collapse" class="navbar-toggler navbar-toggler-right" data-bs-target="#navbarResponsive" type="button" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation" value="Menu"><i class="fa fa-bars"></i></button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+
+                    <ul class="nav nav-pills">
+                        <li class="nav-item"><a href="{{ url_for('home') }}"
+                                class="nav-link active" aria-current="page">Home</a></li>
+                        <li class="nav-item"><a href="{{ url_for('search') }}"
+                            class="nav-link active" aria-current="page">Search</a></li>
+                        {% if not logged_in: %}
+                        <li class="nav-item"><a href="{{ url_for('register') }}"
+                                class="nav-link active" aria-current="page">Register</a></li>
+
+                        <li class="nav-item"><a href="{{ url_for('login') }}"
+                                class="nav-link active" aria-current="page">Login</a></li>
+                        {% endif %}
+
+                        {% if logged_in: %}
+                        <li class="nav-item"><a href="{{ url_for('logout') }}"
+                                class="nav-link active" aria-current="page">Logout</a></li>
+                        {% endif %}
+
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    
+        <header class="masthead" style="background-image:url('{{ url_for('static', filename='assets/img/sat_image.jpg') }}');">
+            {% block content %} 
+            {% endblock %}  
+        </header>
+
+
+    
+    
+    <footer>
+        <p><cite>&copy; Clinton Merritt {{year}}</cite></p>
+    </footer>
+    </body>
+    </html>
+    
+    
+    
+    
+    
+   

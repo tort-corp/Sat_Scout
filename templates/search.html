@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div style="height: 177px;"></div>
+<section>
+    <article>
+        <div class="container text-center">
+            <div class="row">
+
+                <div>
+                    {% if logged_in: %}
+                    <p>Welcome, {{ current_user.name }}</p>
+                    {% endif %}
+
+                </div>
+            </article>
+
+            <div class="container text-center py-3">
+
+                <p>Type in the latitude and longitude of the location you want
+                    information about. </p>
+
+                <form action="/search" method="POST">
+                    <div>
+                        <label for="location">Location:</label><br>
+                        <!-- needed for validation of from  -->
+                        {{ form.csrf_token }}
+                        {{ form.location(id="location") }}
+                        <!-- Custom validator for lat long display error if needed-->
+                        {% if form.location.errors %}
+                        <ul class="errors">
+                            {% for error in form.location.errors %}
+                            <li>{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+                    </div>
+
+                    <div>
+                        <label for="location_two">Enter a second locations latitude and longitude to get a route from the first location to the second.
+                        </label><br>
+                        {{ form.location_two(id="location_two") }}
+                        <!-- Custom validator for lat long display error if needed-->
+                        {% if form.location_two.errors %}
+                        <ul class="errors">
+                            {% for error in form.location_two.errors %}
+                            <li>{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+
+                        {{ form.submit }}
+                    </div>
+                </form>
+
+            </div>
+
+        </section>
+
+        {% endblock %}

@@ -1,39 +1,47 @@
-{% include "header.html" %}
+{% extends "base.html" %}
 
-<section>
-    <article>
-        <div class="container text-center">
+{% block content %}
+
+<header class="masthead" style="background-image:url('{{ url_for('static', filename='assets/img/sat_image.jpg') }}');">
+    <div class="intro-body">
+        <div class="container">
             <div class="row">
-                <div class="col">
+                <div class="col-lg-8 mx-auto">
+                    <h1 class="brand-heading">Sat Scout</h1>
+                    <p class="intro-text">A satellite image location scout</p>
 
-                </div>
-                <div class="col-8">
-                    <p>A satellite image location scout</p>
-                    <h2>About</h2>
-                    <p> This website will retrieve information about the address
-                        entered below using the bing maps API. It will display a
-                        satellite image of the location as well as the local
-                        time. Other information such as local weather will be
-                        available at a later date </p>
-                </div>
-                <div class="col">
-
+                    <a class="nav-item" href="{{ url_for('search') }}"
+                        class="nav-link active" aria-current="page">Go to search</a>
                 </div>
             </div>
-        </article>
-
-        <div class="container text-center py-3">
-
-            <p>Type in the latitude and longitude of the location you want
-                information about.</p>
-            <p>
-                <form action="/" method="POST">
-                    {{ form.location }}
-                    {{ form.submit }}
-                </form>
-            </p>
-
         </div>
+    </div>
+</header>
+<section class="text-center content-section" id="about">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <h2>About Sat Scout</h2>
+                <p>This website will retrieve information about the address
+                    entered below using the bing maps API. It will display a
+                    satellite image of the location as well as the local
+                    time. Other information such as local weather will be
+                    available at a later date</p>
 
-    </section>
-    {% include "footer.html" %}
+            </div>
+        </div>
+    </div>
+        <!-- Attribution for the background image -->
+        <div class="attribution">
+            
+            Photo by <a href="https://unsplash.com/@johndmurphey?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">John Murphey</a> on <a href="https://unsplash.com/photos/a-black-and-white-photo-of-clouds-and-land-RI17kShMucw?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a>
+  
+        
+        </div>
+</section>
+<script src="{{ url_for('static', filename='assets/bootstrap/js/bootstrap.min.js') }}"></script>
+<script src="{{ url_for('static', filename='assets/js/grayscale.js') }}"></script>
+
+
+
+{% endblock %}

@@ -1,17 +1,28 @@
-{% include "header.html" %}
+{% extends "base.html" %}
 
-            <section>
-                <article>
-                  <div class="container text-center py-3">
-                    <p>Location: {{ location }} </p>
-                    <p>Local time: {{ local_time }}</p>              
+{% block content %}
 
-                    
-                            <img src="{{ img_location }}" class="img-fluid" alt="An image of the location searched for">
-                  </div>
-                      
+<div style="height: 177px;"></div>
+<section>
+  <article>
+    <div class="container text-center py-3">
 
-                </article>
+      <img src="{{ img_location }}" class="img-fluid" alt="An image of the location searched for">
 
-            </section>
-            {% include "footer.html" %}
+      <p>Location: {{ location }} </p>
+
+      <p>Local time: {{ local_time }}</p>
+
+      <p>Local temperature: {{ local_weather['current_condition']['temperatureF'] }} and {{ local_weather['current_condition']['weatherDesc']}} <br>
+        Feels like: {{ local_weather['current_condition']['feelsLikeF'] }}
+      </p>
+
+    </div>
+
+  </article>
+
+</section>
+
+
+
+{% endblock %}
