@@ -2,4 +2,6 @@ venv
 .env
 __pycache__
 logging.log
-
+users.db
+img/image.jpg
+image.jpg

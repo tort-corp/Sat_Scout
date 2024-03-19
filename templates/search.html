@@ -18,7 +18,7 @@
 
             <div class="container text-center py-3">
 
-                <p>Type in the latitude and longitude of the location you want
+                <p>Type in the latitude and longitude of a US based location you want to receive
                     information about. </p>
 
                 <form action="/search" method="POST">
@@ -55,6 +55,32 @@
                 </form>
 
             </div>
+
+            {% if logged_in: %}
+            <div class="container" style="min-width: 300px;max-width: 500px;color: var(--bs-secondary-bg);background: var(--bs-emphasis-color);">
+                <p>These are your previous searches.</p>
+                <div class="table-responsive" style="background: var(--bs-table-border-color);">
+                    <table class="table">
+                        <thead style="background: var(--bs-secondary-bg);">
+                            <tr style="border-color: var(--bs-secondary-bg);">
+                                <th style="width: 50%;text-align: left;">Location</th>
+                                <th style="width: 50%;text-align: left;">Second Optional Location</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            {% for loc_one, optional_loc in search_history %}
+                            <tr>
+                                <td>{{ loc_one }} </td>
+                                <td>{{ optional_loc }} </td>
+                            </tr>
+                            {% endfor %}
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            {% endif %}
 
         </section>
 

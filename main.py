@@ -2,10 +2,9 @@ from flask import Flask, render_template, url_for, redirect, flash
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, ValidationError, PasswordField
 from wtforms.validators import DataRequired, Email, Length
-#from flask_bootstrap import Bootstrap5
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
-from sqlalchemy import Integer, String
+from sqlalchemy import Integer, String, ForeignKey
 from flask_login import UserMixin, login_user, LoginManager, login_required, current_user, logout_user
 from werkzeug.security import generate_password_hash, check_password_hash
 import datetime, os, requests
@@ -80,7 +79,15 @@ class User(UserMixin, db.Model):
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     email: Mapped[str] = mapped_column(String(100), unique=True)
     password: Mapped[str] = mapped_column(String(100))
-    name: Mapped[str] = mapped_column(String(1000))
+    name: Mapped[str] = mapped_column(String(100))
+
+# table to store user searches
+class User_Search(db.Model):
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    user_id: Mapped[int] = mapped_column(Integer, ForeignKey('user.id'), nullable=False)
+    location: Mapped[str] = mapped_column(String(30), nullable=False)
+    location_two: Mapped[str] = mapped_column(String(30))
+
 
 
 with app.app_context():
@@ -127,14 +134,21 @@ def search():
         location_two = search_form.location_two.data
         logging.info(location)
 
+        try: 
+            user_id = current_user.id            
+        
+            new_search = User_Search(
+                        user_id = user_id,
+                        location = location,
+                        location_two = location_two
+                        )
 
-
-
-
-
-
-
-
+            # write User_search class search to database
+            db.session.add(new_search)
+            db.session.commit()
+        
+        except:
+            print("No user logged in to add search to DB")
 
 
         #get the location time zone--------------------
@@ -192,8 +206,11 @@ def search():
 
 
         img_location = "../static/assets/img/image.jpg"
-        error_details = ""
+        img_error = ""
+        load_img = True
+        
         try:
+            img_error = ""
             #make the request to the API
             response = requests.get(url, params=params, timeout=10)
             response.raise_for_status()
@@ -211,12 +228,17 @@ def search():
             
 
         except requests.HTTPError as error:
-            print(f"{error_details}. Image request HTTP Error:", error)
-            # Handle timeout error
+            print("Image request HTTP Error:", error)
+            load_img = False
+            img_error = "Image request HTTP Error. There is no coverage for this imagery type at the requested location. : 404"
+        # Handle timeout error
         except requests.exceptions.Timeout:        
             print("The request timed out, please try again later or check internet connection")
+            load_img =False
         except Exception as error:
             print("An error occurred with the image:", error)
+            load_img =False
+            img_error = error
 
 
         # get weather from partner microservice -------------------
@@ -251,14 +273,36 @@ def search():
         # POST response
         return render_template('result.html', 
                                year=current_year, 
-                               img_location=img_location, 
+                               img_location=img_location,
+                               img_error=img_error,
+                               load_img=load_img, 
                                local_time=local_time, 
                                location=location,
-                               local_weather=local_weather)
+                               local_weather=local_weather, 
+                               logged_in=current_user.is_authenticated,                               
+                               )
+
+
+    # Setup query for previous user search  
+    previous_searches = []  
+    try:
+        user_id = current_user.id
+        # get users previous search
+        result = db.session.execute(db.select(User_Search.location, User_Search.location_two).where(User_Search.user_id == user_id))
+        # convert user_search object to a tuple?
+        previous_searches = result.fetchall()
+        
+
+    except:
+        print("No user logged in to load previous user searches")
 
 
     # GET response
-    return render_template('search.html', year=current_year, form=search_form, logged_in=current_user.is_authenticated)
+    return render_template('search.html', year=current_year, 
+                           form=search_form, 
+                           logged_in=current_user.is_authenticated,
+                           search_history=previous_searches
+                           )
 
 
 

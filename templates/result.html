@@ -6,23 +6,26 @@
 <section>
   <article>
     <div class="container text-center py-3">
-
+      {% if load_img %}
       <img src="{{ img_location }}" class="img-fluid" alt="An image of the location searched for">
 
       <p>Location: {{ location }} </p>
 
       <p>Local time: {{ local_time }}</p>
 
-      <p>Local temperature: {{ local_weather['current_condition']['temperatureF'] }} and {{ local_weather['current_condition']['weatherDesc']}} <br>
-        Feels like: {{ local_weather['current_condition']['feelsLikeF'] }}
+      <p>Local temperature: {{ local_weather['current_condition']['temperatureF'] }} &deg;F and {{ local_weather['current_condition']['weatherDesc']}} <br>
+        Feels like: {{ local_weather['current_condition']['feelsLikeF'] }} &deg;F
       </p>
+
+      {% else %}
+      <p>{{ img_error }}</p>
+
+      {% endif %}
 
     </div>
 
   </article>
 
 </section>
-
-
 
 {% endblock %}
