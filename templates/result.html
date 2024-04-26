@@ -13,9 +13,10 @@
 
       <p>Local time: {{ local_time }}</p>
 
-      <p>Local temperature: {{ local_weather['current_condition']['temperatureF'] }} &deg;F and {{ local_weather['current_condition']['weatherDesc']}} <br>
+      {# Partners weather service no longer running #}
+      {# <p>Local temperature: {{ local_weather['current_condition']['temperatureF'] }} &deg;F and {{ local_weather['current_condition']['weatherDesc']}} <br>
         Feels like: {{ local_weather['current_condition']['feelsLikeF'] }} &deg;F
-      </p>
+      </p> #}
 
       {% else %}
       <p>{{ img_error }}</p>

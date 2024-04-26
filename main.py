@@ -240,34 +240,34 @@ def search():
             load_img =False
             img_error = error
 
+        # partner microservice down
+        # # get weather from partner microservice -------------------
+        # lat_long_list = location.split(",")
+        # weather_api = "https://unit-convertering.vercel.app/api/weather"
+        # error_details = ""
+        # local_weather = ""
 
-        # get weather from partner microservice -------------------
-        lat_long_list = location.split(",")
-        weather_api = "https://unit-convertering.vercel.app/api/weather"
-        error_details = ""
-        local_weather = ""
+        # params = {
+        #     "latitude": lat_long_list[0],
+        #     "longitude": lat_long_list[1]
+        # }    
 
-        params = {
-            "latitude": lat_long_list[0],
-            "longitude": lat_long_list[1]
-        }    
+        # try:
+        #     response = requests.get(weather_api, params=params, timeout=10) 
+        #     response.raise_for_status()
+        #     json_data = response.json()
+        #     print(json_data)
+        #     local_weather = json_data['body']
 
-        try:
-            response = requests.get(weather_api, params=params, timeout=10) 
-            response.raise_for_status()
-            json_data = response.json()
-            print(json_data)
-            local_weather = json_data['body']
-
-        # Handle HTTP errors
-        except requests.HTTPError as error:
-            print(f"{error_details}. Weather request HTTP Error:", error)
-        # Handle timeout error
-        except requests.exceptions.Timeout:        
-            print("The request timed out, please try again later or check internet connection")
-        # Handle other errors
-        except Exception as error:
-            print("An error occurred with the weather:", error)
+        # # Handle HTTP errors
+        # except requests.HTTPError as error:
+        #     print(f"{error_details}. Weather request HTTP Error:", error)
+        # # Handle timeout error
+        # except requests.exceptions.Timeout:        
+        #     print("The request timed out, please try again later or check internet connection")
+        # # Handle other errors
+        # except Exception as error:
+        #     print("An error occurred with the weather:", error)
 
 
         # POST response
@@ -278,7 +278,7 @@ def search():
                                load_img=load_img, 
                                local_time=local_time, 
                                location=location,
-                               local_weather=local_weather, 
+                               #local_weather=local_weather, 
                                logged_in=current_user.is_authenticated,                               
                                )
 
