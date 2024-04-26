@@ -12,5 +12,12 @@ Flask Login: Handled the user object as well as access to different pages and in
 Werkzeug: For password hashing and salting. 
 Logging: Logs all requests and errors made.
 
+<h2>Home page</h2>
+![home](https://github.com/tort-corp/CS361_sat_scout/assets/46113637/440bb0e7-9af6-4936-80cd-84f7a8f3438a)
 
+<h2>Search Page</h2>
+![search](https://github.com/tort-corp/CS361_sat_scout/assets/46113637/c96c0c28-9265-4c06-828f-38f164fea573)
+
+<h2>Results page</h2>
+![results](https://github.com/tort-corp/CS361_sat_scout/assets/46113637/d37fe4d9-847c-4402-af7d-0632a439acda)
 
